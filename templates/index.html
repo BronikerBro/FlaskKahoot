@@ -17,7 +17,7 @@
         <h1 class="text-center text-white">Tests:</h1>
         <div class="list-group text-center" style="margin:5px auto; width: 1500px;">
             {% for quiz in quizes %}
-                    <a href="{{ url_for('test', id=quiz.id ) }}", class="q text-white border-success-subtle border-5 list-group-item list-group-item-action" style="margin-bottom:15px; border-radius:30px;background-color:#009900;">
+                    <a href="{{ url_for('test', id=quiz.id) }}", class="q text-white border-success-subtle border-5 list-group-item list-group-item-action" style="margin-bottom:15px; border-radius:30px;background-color:#009900;">
                         <h2>{{ quiz.name }} </h2>
                         <h4> Age: {{ quiz.age_from }}-{{ quiz.age_to }}</h4>
                     </a>

@@ -5,12 +5,103 @@
     <title>{{quiz.name}}</title>
      {% endfor %}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        .btnm{
+            height: 40vh;
+            text-align: center;
+            white-space: pre-wrap;
+            overflow: auto;
+            font-size: 50px;
+            position: relative;
+            width: 48vw;
+            border: blue 5px solid;
+            margin: 10px;
+            background-color: #77e732;
+            border-color: #c4f791;
+            border-radius: 30px;
+        }
+        .btnm:hover{
+            background-color: #4d8f0a;
+            border-color: #c4f791;
+        }
+
+        .btnm:focus {
+            background-color: #4d8f0a;
+            border-color: black;
+        }
+
+        h2{
+            font-size: 70px;
+            text-align: center;
+            color: white;
+        }
+    </style>
 </head>
-<body>
+<body style="background-color: #599f2d;">
+<script>
+     function shuffle() {
+      var containers = document.getElementsByClassName("question");
+     for (var container of containers) {
+     console.log(container)
+  var elementsArray = Array.prototype.slice.call(container.getElementsByClassName('shuffleMe'));
+    elementsArray.forEach(function(element){
+    container.removeChild(element);
+  })
+  shuffleArray(elementsArray);
+  elementsArray.forEach(function(element){
+  container.appendChild(element);
+})
+}
+}
+
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+    return array;
+}
+</script>
 <nav class="navbar bg-dark" data-bs-theme="dark">
     <div class="container-fluid">
     <a class="navbar-brand mb-0 h1 text-white" href="{{url_for('index')}}">Home</a>
   </div>
+
 </nav>
-</body>
+{% for quiz in quizname %}
+    <form action="{{  url_for('test', id=quiz.id)  }}" method = "post" id = "myForm">
+        {% endfor %}
+            <h2>{{quest.question}}</h2>
+            <div class="question">
+                <span class="shuffleMe" >
+                    <input type="radio" class="btn-check" name="{{quest.id}}" value="right_answer_{{quest.id}}" id="btn-check1"onclick="document.getElementById('myForm').submit();">
+                    <label id="label1" class="btnm btn btn-primary" for="btn-check1">{{quest.right_answer}} </label>
+                </span>
+
+                <span class="shuffleMe" >
+                    <input type="radio" class="btn-check" name="{{quest.id}}" value="wrong_answer1_{{quest.id}}" id="btn-check2"onclick="document.getElementById('myForm').submit();">
+                    <label id="label2" class="btnm btn btn-primary" for="btn-check2">{{quest.wrong_answer1}}</label>
+                </span>
+                <span class="shuffleMe" >
+                    <input type="radio" class="btn-check" name="{{quest.id}}" value="wrong_answer2_{{quest.id}}" id="btn-check3"onclick="document.getElementById('myForm').submit();">
+                    <label id="label3" class="btnm btn btn-primary" for="btn-check3">{{quest.wrong_answer2}}</label>
+                </span>
+                <span class="shuffleMe" >
+                    <input type="radio" class="btn-check" name="{{quest.id}}" value="wrong_answer3_{{quest.id}}" id="btn-check4"onclick="document.getElementById('myForm').submit();">
+                    <label id="label4" class="btnm btn btn-primary" for="btn-check4">{{quest.wrong_answer3}}</label>
+                </span>
+            </div>
+        <script>
+                  shuffle()
+        </script>
+        <script src="{{url_for('static', filename='JS/fittext.js')}}"></script>
+<!--        <script>-->
+<!--          window.fitText(document.getElementById('label1'));-->
+<!--          window.fitText(document.getElementById('label2'));-->
+<!--          window.fitText(document.getElementById('label3'));-->
+<!--          window.fitText(document.getElementById('label4'));-->
+<!--        </script>-->
+        </form>
 </html>
